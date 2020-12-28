@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Cocktail } from "../../shared/interfaces/cocktail.interface";
+import { CocktailService } from "../../shared/services/cocktail.service";
 import { PanierService } from "../../shared/services/panier.service";
 
 @Component({
@@ -8,11 +10,19 @@ import { PanierService } from "../../shared/services/panier.service";
   styleUrls: ["./cocktail-details.component.scss"]
 })
 export class CocktailDetailsComponent implements OnInit {
-  @Input() cocktail: Cocktail;
+  public cocktail: Cocktail;
 
-  constructor(private panierService: PanierService) {}
+  constructor(
+    private cocktailService: CocktailService,
+    private panierService: PanierService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.cocktail = this.cocktailService.getCocktail(+paramMap.get("index"));
+    });
+  }
 
   public addToPanier() {
     this.panierService.addPanier(this.cocktail.ingredients);

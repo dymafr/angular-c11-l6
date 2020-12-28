@@ -10,7 +10,7 @@ export const APP_ROUTES: Routes = [
     component: CocktailContainerComponent,
     children: [
       { path: ":index", component: CocktailDetailsComponent },
-      { path: "", component: CocktailDetailsComponent }
+      { path: "", redirectTo: "0", pathMatch: "full" }
     ]
   },
   { path: "panier", component: PanierContainerComponent }
