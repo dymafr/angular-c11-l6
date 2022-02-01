@@ -6,17 +6,17 @@ import { PanierService } from '../shared/services/panier.service';
 @Component({
   selector: 'app-panier-container',
   templateUrl: './panier-container.component.html',
-  styleUrls: ['./panier-container.component.scss']
+  styleUrls: ['./panier-container.component.scss'],
 })
 export class PanierContainerComponent implements OnInit, OnDestroy {
-  public ingredients?: Ingredient[] | null;
+  public ingredients: Ingredient[] | null = null;
   public subscription?: Subscription;
 
   constructor(private panierService: PanierService) {}
 
   ngOnInit() {
     this.subscription = this.panierService.ingredients$.subscribe(
-      (ingredients: Ingredient[] | null) => (this.ingredients = ingredients)
+      (ingredients: Ingredient[] | null) => (this.ingredients = ingredients)
     );
   }
 
